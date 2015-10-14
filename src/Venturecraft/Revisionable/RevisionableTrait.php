@@ -25,6 +25,11 @@ trait RevisionableTrait
     /**
      * @var array
      */
+    private $childData = array();
+
+    /**
+     * @var array
+     */
     private $updatedData = array();
 
     /**
@@ -137,7 +142,7 @@ trait RevisionableTrait
      *
      * @return HasManyRevisionable
      */
-    public function hasManyRevisionable($related, $relation, $foreignKey = null, $localKey = null)
+    public function hasManyRevisionable($related, $foreignKey = null, $localKey = null, $relation = null)
     {
         $foreignKey = $foreignKey ?: $this->getForeignKey();
 
@@ -208,7 +213,7 @@ trait RevisionableTrait
             $id = $model->{$model->getKeyName()};
             $model = $model->find($id);
 
-            $this->originalData = $model ? $model->toJson() : null;
+            $this->childData = $model ? $model->toJson() : null;
         }
     }
 
@@ -227,7 +232,7 @@ trait RevisionableTrait
         ) {
             $revision = $this->prepareRevision(
                 $relation,
-                $this->originalData,
+                $this->childData,
                 $model->toJson()
             );
 

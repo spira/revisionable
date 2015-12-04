@@ -5,10 +5,9 @@ namespace Venturecraft\Revisionable;
 use DB;
 use App;
 use DateTime;
-use Spira\Model\Collection\Collection;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spira\Core\Model\Model\BaseModel;
 
 trait RevisionableTrait
 {
@@ -128,7 +127,7 @@ trait RevisionableTrait
      */
     public static function classRevisionHistory($limit = 100, $order = 'desc')
     {
-        return \Venturecraft\Revisionable\Revision::where('revisionable_type', get_called_class())
+        return Revision::where('revisionable_type', get_called_class())
             ->orderBy('updated_at', $order)->limit($limit)->get();
     }
 
@@ -416,7 +415,7 @@ trait RevisionableTrait
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             );
-            $revision = new \Venturecraft\Revisionable\Revision;
+            $revision = new Revision;
             \DB::table($revision->getTable())->insert($revisions);
         }
     }

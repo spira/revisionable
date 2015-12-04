@@ -3,10 +3,10 @@
 namespace Venturecraft\Revisionable;
 
 use Illuminate\Support\Facades\Log;
-use Spira\Model\Model\BaseModel as Model;
 use Illuminate\Database\Eloquent\Collection;
+use Spira\Core\Model\Model\BaseModel;
 
-class Revision extends Model
+class Revision extends BaseModel
 {
     /**
      * @var string
